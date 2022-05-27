@@ -1,10 +1,4 @@
 INDEX VERSION 1.4+C:\Users\BIT\framework\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3243869992.index
-129472711.index
-1748212980.index
-3243869992.index
-80052891.index
-2210509440.index
+2826838515.index
 2155133277.index
-3249980491.index
-1217911438.index
+368042100.index
