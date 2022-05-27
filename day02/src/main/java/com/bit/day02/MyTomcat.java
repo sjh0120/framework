@@ -1,6 +1,6 @@
 package com.bit.day02;
 
-import javax.servlet.http.HttpServlet;
+import java.io.File;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.Server;
@@ -14,10 +14,10 @@ public class MyTomcat {
 		serve.setPort(8080);
 		try {
 			
-			Context cont=serve.addContext("/","C:\\Users\\BIT\\framework\\day02\\src\\main\\webapp");
+			Context cont=serve.addContext("/",new File(".").getAbsolutePath());
+			serve.addWebapp("/", new File(".").getAbsolutePath());
+			serve.addServlet(cont, "ex01", "com.bit.controller.Ex01Controller");
 			cont.addServletMapping("/ex01", "ex01");
-			serve.addWebapp("/", "C:\\Users\\BIT\\framework\\day02\\src\\main\\webapp");
-			serve.addServlet(cont, "/ex01", (HttpServlet)Class.forName("com.bit.controller.Ex01Controller").newInstance());
 		
 			serve.start();
 			Server server=serve.getServer();
