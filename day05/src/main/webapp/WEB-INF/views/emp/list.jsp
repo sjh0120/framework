@@ -45,9 +45,9 @@
 	      <%@ page import="com.bit.emp.model.*,java.util.*" %>
 	      <%for(EmpVo bean : (List<EmpVo>)request.getAttribute("list")){%>
 	         <tr>
-	            <td><a href="#"><%=bean.getEmpno() %></a>
-	            <td><a href="#"><%=bean.getEname() %></a>
-	            <td><a href="#"><%=bean.getSal() %></a>
+	            <td><a href="detail.bit?empno=<%=bean.getEmpno() %>"><%=bean.getEmpno() %></a>
+	            <td><a href="detail.bit?empno=<%=bean.getEmpno() %>"><%=bean.getEname() %></a>
+	            <td><a href="detail.bit?empno=<%=bean.getEmpno() %>"><%=bean.getSal() %></a>
 	         </tr>
 	      <%}%>
 	      </tbody>

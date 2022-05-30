@@ -10,9 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 public class SimpleHandlerMapping implements BitHandlerMapping {
 	Map<String,BitController> cmap=new HashMap<>();
 	
