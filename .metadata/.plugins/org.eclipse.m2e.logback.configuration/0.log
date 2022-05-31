@@ -180,3 +180,7 @@
 2022-05-31 10:13:43,658 [Worker-30: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for sts01
 2022-05-31 10:14:29,444 [Worker-42: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of sts01
 2022-05-31 10:14:29,444 [Worker-42: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for sts01
+2022-05-31 10:39:23,084 [Worker-47: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of sts01
+2022-05-31 10:39:23,084 [Worker-47: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for sts01
+2022-05-31 10:46:02,082 [Worker-47: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Changed resources require a complete clean of filtered resources of sts01
+2022-05-31 10:46:02,083 [Worker-47: Building] INFO  o.e.m.w.i.f.ResourceFilteringBuildParticipant - Executing resource filtering for sts01
