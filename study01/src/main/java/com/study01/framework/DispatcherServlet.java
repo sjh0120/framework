@@ -26,8 +26,8 @@ public class DispatcherServlet extends HttpServlet{
 	public void doDo(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("dispatcher start...");
 		//req.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(req,resp);
-		resolver.setSuffix("/WEB-INF/views/");
-		resolver.setPrefix(".jsp");
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
 		
 		
 		String url=req.getRequestURI().substring(req.getContextPath().length());
