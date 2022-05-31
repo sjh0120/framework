@@ -8,21 +8,28 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-
 public class Emp03Dao extends JdbcDaoSupport implements EmpDao{
+//	private String msg;
+	
+//	public void setMsg(String msg) {
+//		this.msg = msg;
+//	}
 	
 	//super로 부모에 dataSource를 넣어주기 때문에 빼야함
 //	private DataSource dataSource;
 
+//	public Emp03Dao() {
+//		MysqlDataSource dataSource=new MysqlDataSource();
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/scott");
+//		dataSource.setUser("user01");
+//		dataSource.setPassword("1234");
+//		//super로 부모에 dataSource를 넣어주기 때문에 빼야함
+////		this.dataSource=dataSource;
+//		super.setDataSource(dataSource);
+//	}
+	
 	public Emp03Dao() {
-		MysqlDataSource dataSource=new MysqlDataSource();
-		dataSource.setUrl("jdbc:mysql://localhost:3306/scott");
-		dataSource.setUser("user01");
-		dataSource.setPassword("1234");
-		//super로 부모에 dataSource를 넣어주기 때문에 빼야함
-//		this.dataSource=dataSource;
-		super.setDataSource(dataSource);
+		System.out.println("new Dao...");
 	}
 	
 	@Override

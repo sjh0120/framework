@@ -11,20 +11,25 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EmpDaoTest {
 	static EmpVo target;
-	EmpDao dao;
 	static int before;
+	static EmpDao dao;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		target=new EmpVo(25,"test25",25,"test25");
+//		dao=new Emp04Dao();
+		ApplicationContext context=null;
+		context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		dao=(EmpDao)context.getBean("dao");
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		dao=new Emp04Dao();
 	}
 
 	@Test
