@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 
-public class Emp02Dao{
+public class Emp02Dao implements EmpDao{
 	DataSource dataSource;
 	
 	public Emp02Dao() {
