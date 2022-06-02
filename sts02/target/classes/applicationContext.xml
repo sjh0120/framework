@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="empno" value="1111"></property>
+		<property name="ename" value="test"></property>
+		<property name="hiredate">
+			<bean class="java.sql.Date">
+				<constructor-arg value="1654129578690"></constructor-arg>
+			</bean>
+		</property>
+	</bean> 
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<constructor-arg value="2222"></constructor-arg>
+		<constructor-arg value="user02"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="now" class="java.sql.Date">
+		<constructor-arg value="1654129578690"></constructor-arg>
+	</bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<constructor-arg value="3333"></constructor-arg>
+		<constructor-arg value="1000"></constructor-arg>
+		<constructor-arg value="user03"></constructor-arg>
+		<constructor-arg value="tester"></constructor-arg>
+		<constructor-arg ref="now"></constructor-arg>
+	</bean>
+	
+	
+	<bean id="item1" class="java.util.Date"></bean>
+	<bean id="item2" class="java.util.Date"></bean>
+	<bean id="item3" class="java.util.Date"></bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr1">
+			<list>
+				<ref bean="item1"></ref>
+				<ref bean="item2"></ref>
+				<ref bean="item3"></ref>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr2">
+			<set>
+				<value>첫번째</value>
+				<value>두번째</value>
+				<value>세번째</value>
+				<value>첫번째</value>
+			</set>
+		</property>
+	</bean>
+	
+	
+	<bean id="now" class="java.util.Date"></bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr3">
+			<map>
+				<entry key="key1" value="val1"></entry>
+				<entry key="key2">
+					<ref local="now"></ref>
+				</entry>
+				<entry key="key3">
+					<value>val3</value>
+				</entry>
+				<entry key="key4">
+					<bean class="java.util.Date"></bean>
+				</entry>
+				<entry key="key5" value-ref="now"></entry>
+				<entry>
+					<key>
+						<value>key6</value>
+					</key>
+					<value>value6</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<bean id="now" class="java.util.Date"></bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr4">
+			<map>
+				<entry key="key1" value="val1"></entry>
+				<entry key="key2">
+					<ref local="now"></ref>
+				</entry>
+				<entry key="key3">
+					<value>val3</value>
+				</entry>
+				<entry key="key4">
+					<bean class="java.util.Date"></bean>
+				</entry>
+				<entry key="key5" value-ref="now"></entry>
+				<entry>
+					<key>
+						<value>key6</value>
+					</key>
+					<value>value6</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<bean id="now" class="java.util.Date"></bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr4">
+			<props>
+				<prop key="key1">val1</prop>
+				<prop key="key2">val2</prop>
+				<prop key="key3">val3</prop>
+				<prop key="key4">props는 문서기반 => 무조건 String 형태뿐!</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<bean id="now" class="java.util.Date"></bean>
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<property name="arr5">
+			<array>
+				<value>첫번째</value>
+				<value>두번째</value>
+				<value>세번째</value>
+				<value>네번째</value>
+			</array>
+		</property>
+	</bean>
+	
+	
+	<bean id="bean" class="com.bit.emp.model.EmpVo">
+		<constructor-arg value="test" index="1"></constructor-arg>
+		<constructor-arg value="1111" index="0"></constructor-arg>
+	</bean>
+	-->
+	
+	<!-- 이건 너무 mysql에 한정적임 // 범용성 떨어짐
+	<bean id="dataSource" class="com.mysql.cj.jdbc.MysqlDataSource">
+		<property name="url" value="jdbc:mysql://localhost:3306/scott"></property>
+		<property name="user" value="user01"></property>
+		<property name="password" value="1234"></property>
+	</bean> -->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/scott"></property>
+		<property name="username" value="user01"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+	<!-- case 1 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<constructor-arg ref="dataSource"></constructor-arg>
+	</bean>
+	
+	<bean id="empDao" class="com.bit.emp.model.EmpDaoImpl4">
+		<constructor-arg name="jdbcTemplate" ref="jdbcTemplate"/>
+		<constructor-arg ref="transactionManager"></constructor-arg>
+	</bean>
+	
+	<!-- case 2
+	EmpDao empDao=new EmpDaoImpl2;를 하고 있는 것과 같은 의미!
+	따라서 empDao=ac.getBean(EmpDao.class);를 한 것 또한 가능!
+	즉 id="empDao"를 한건 id도 되지만 자료의 타입도 된다는 의미!
+	getBean을 할때 
+	1순위 -> 타입
+	2순위 -> 이름
+	3순위 -> 타입 + 이름
+	getBean을 하는데 우선적으로 타입이 일치하는 것을 bean으로 가져온다!
+	이때 만약 타입이 object라면 모든 타입을 다 가져오기 때문에 문제가 생긴다!
+	(+ 만약 타입이 일치하는게 없을 때에는 이름이 일치하는 bean을 가져온다!)
+	그래서 이때 이름을 참조해서 타입 + 이름이 일치하는 bean을 가져온다!
+	 -->
+	<!-- <bean id="empDao" class="com.bit.emp.model.EmpDaoImpl2">
+		<constructor-arg name="dataSource" ref="dataSource"></constructor-arg>
+	</bean> -->
+	
+	
+	<!-- <bean id="dataSource2" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/scott"></property>
+		<property name="username" value="user01"></property>
+		<property name="password" value="1234"></property>
+	</bean>
+	<bean id="empDao2" class="com.bit.emp.model.EmpDaoImpl1">
+		<property name="dataSource" ref="dataSource2"></property>
+	</bean> -->
+</beans>
