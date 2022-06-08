@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		p:driverClassName="com.mysql.cj.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/scott"
+		p:username="user01" p:password="1234"
+		p:maxActive="3"
+		p:maxIdle="5"
+		p:minIdle="1"
+		p:maxWait="3000"
+		/>
+
+	<bean id="jdbcTemplate" 
+		class="org.springframework.jdbc.core.JdbcTemplate" 
+		p:dataSource-ref="dataSource"/>
+	
+	<bean id="autoLogging" class="com.bit.sts05.utils.AutoLogging"></bean>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.bit.sts05.model.EmpDao.*(..))" id="beforelog"/>
+		<aop:aspect ref="autoLogging">
+			<aop:before method="beforeAop" pointcut-ref="beforelog"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<context:component-scan base-package="com.bit.sts05.model"/>
+	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  <property name="dataSource" ref="dataSource"/>
+	</bean>
+ <!-- 
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+ 
+	<aop:config>
+		<aop:pointcut id="requiredTx"
+			expression="execution(* com.bit.sts05.service.EmpService.*(..))"/>
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="requiredTx" />
+	</aop:config>
+	-->
+	
+	<context:component-scan base-package="com.bit.sts05.service">
+	</context:component-scan>
+	<tx:annotation-driven transaction-manager="txManager"/>
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+
+	<!-- 
+	<bean id="myModule" class="com.bit.sts05.service.MyModuleImpl"></bean>
+	
+	<bean id="userBefore" class="com.bit.sts05.utils.UserBefore"></bean>
+	<bean id="userAfter" class="com.bit.sts05.utils.UserAfter"></bean>
+	<bean id="userAround" class="com.bit.sts05.utils.UserAround"></bean>
+	
+	<aop:config>
+		
+		//블럭1 정리
+		<aop:pointcut expression="execution(* func*(..))" id="moduleBefore"/>
+		func로 시작하는 모든 함수들이 실행되기전 before에서 aop가 실행된다
+		
+		//블럭2
+		<aop:pointcut expression="execution(* com.bit.sts05.service.MyModule.*(..))" id="modulePointCut"/>
+		
+		
+		//블럭3 정리
+		com.bit.sts05.service.MyModule의 모든 함수가 실행되기전 before에서 aop가 실행된다!
+		
+		pointcut => 실행 시점이 아닌 단순 실행 기준점
+		실행 시점 결정요소 -> aop:before / aop:after
+		
+		
+		
+		//블럭4 before
+		<aop:aspect ref="userBefore">
+			<aop:before method="beforeTargetMethod" pointcut-ref="modulePointCut"/>
+		</aop:aspect> 
+		
+		
+		
+		//블럭5 after
+		<aop:aspect ref="userAfter">
+			<aop:after method="afterTargetMethod" pointcut-ref="modulePointCut"/>
+			<aop:after-returning method="afterReturningTargetMethod" 
+													pointcut-ref="modulePointCut"
+													returning="result"/>
+			<aop:after-throwing method="afterThrowingTargetMethod" 
+													pointcut-ref="modulePointCut"
+													throwing="exp"/>
+		</aop:aspect> 
+		
+		
+		 //블럭6 around
+		 <aop:aspect ref="userAround">
+			<aop:around method="aroundTargetMethod" pointcut-ref="modulePointCut"/>
+		</aop:aspect>
+	</aop:config>
+	 -->
+	
+	<!-- autoproxy 없으면 안됨! -->
+	
+	<!-- 
+	<bean id="userBefore" class="com.bit.sts05.utils.UserBefore"></bean> 
+	을 안쓸려면? (xml에서 객체를 생성안하고 @Controller를 통해서 객체를 생성할 때
+	context:component-scan사용
+	=> 웹에서 문제 발생가능성 매우 높음!
+	
+	controller-scan이 아니라 component-scan 인 이유?
+	=> controller는 @component를 상속받기 때문!
+	-->
+	
+</beans>
