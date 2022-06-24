@@ -1,4 +1,4 @@
-GitRepositoriesView.GitDirectories=C\:\\Users\\BIT\\framework\\.git;
-GitRepositoriesView.GitDirectories.relative=.git;
+GitRepositoriesView.GitDirectories=C\:\\Users\\BIT\\git\\gs-messaging-stomp-websocket\\.git;C\:\\Users\\BIT\\framework\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\Users\\BIT\\git\\gs-messaging-stomp-websocket\\.git;.git;
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
